@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>JS Part 1 Homework</title>
+        <link href="index.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body class="working-space">
+        <div class="main-content">
+            <section>
+                <form id="form">
+                    <div class="row">
+                        <div class="column-label">
+                           <h4> Country name : </h4>
+                        </div>
+                        <div class="column-data">
+                            <div class="wrapper">
+                                <input type="text" name="search" id="search" placeholder="Type to search">
+                                <div class="results">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>                                    
+                        </div>
+                    </div>
+                </form>
+                <div id="output">
+                </div>
+                <div id="content_country">
+                    <hr>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Common name country :</h5>
+                        </div>
+                        <div class="column-data" id="name_country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Capital :</h5>
+                        </div>
+                        <div class="column-data" id="capital_country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Area :</h5>
+                        </div>
+                        <div class="column-data" id="area_country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Population :</h5>
+                        </div>
+                        <div class="column-data" id="population_country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Region :</h5>
+                        </div>
+                        <div class="column-data" id="region_country">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-label">
+                            <h5>Flag country :</h5>
+                        </div>
+                        <div class="column-data">
+                            <img src="#" id="flag_country" class="img-column-data" alt="flag country">
+                        </div>
+
+                    </div>
+                </div>    
+            </section>
+            <section>
+                <h2>Previous search:</h2>
+                <div class = "row" id="history_row_1">
+                    <div class = "column-label" id = "historycolumn_name_country_1">
+                    </div>
+                    <div class = "column-data">
+                        <img src="#" id = "historycolumn_flag_country_1" class="img-column-data" alt="flag country">
+                    </div>
+                </div>
+                <div class="row" id="history_row_2">
+                    <div class="column-label" id="historycolumn_name_country_2">
+                    </div>
+                    <div class="column-data">
+                        <img src="#" id="historycolumn_flag_country_2" class="img-column-data" alt="flag country">
+                    </div>
+                </div>
+                <div class="row" id="history_row_3">
+                    <div class="column-label" id="historycolumn_name_country_3">
+                    </div>
+                    <div class="column-data">
+                        <img src="#" id="historycolumn_flag_country_3" class="img-column-data" alt="flag country">
+                    </div>
+                </div>
+            
+            </section>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
