@@ -17,7 +17,6 @@ async function getData(url) {
     }
     return response.json();
 }
-
 async function loadCountriesData() {
     const countries = await getData('https://restcountries.com/v3.1/all?fields=name&fields=cca3');
     return countries.reduce((result, country) => {
@@ -47,6 +46,7 @@ async function loadDetailCountry(countryCode) {
     }, []);
     return countryInfo;
 }
+
 function printInformationCountry(country) {
     const nameCountry = document.getElementById('name_country');
     nameCountry.innerHTML = `<h5>${country.name}</h5>`;
@@ -152,6 +152,31 @@ function updateUploadCountryes(countryCode) {
     }
 }
 
+function debounce(callee, timeoutMs) {
+    return function perform(...args) {
+        // В переменной previousCall мы будем хранить
+        // временную метку предыдущего вызова...
+        const previousCall = this.lastCall;
+        // ...а в переменной текущего вызова —
+        // временную метку нынешнего момента.
+        this.lastCall = Date.now();
+
+        // Нам это будет нужно, чтобы потом сравнить,
+        // когда была функция вызвана в этот раз и в предыдущий.
+        // Если разница между вызовами меньше, чем указанный интервал,
+        // то мы очищаем таймаут...
+        if (previousCall && this.lastCall - previousCall <= timeoutMs) {
+            clearTimeout(this.lastCallTimer);
+        }
+
+        // ...который отвечает за непосредственно вызов функции-аргумента.
+        // Обратите внимание, что мы передаём все аргументы ...args,
+        // который получаем в функции perform —
+        // это тоже нужно, чтобы нам не приходилось менять другие части кода.
+        this.lastCallTimer = setTimeout(() => callee(...args), timeoutMs);
+    };
+}
+
 (async () => {
     setComponentStatus(true);
     let arrNametoCCA3 = [];
@@ -170,8 +195,9 @@ function updateUploadCountryes(countryCode) {
     setComponentStatus(false);
     // load history for last country
     uploadLastSaveCountryes();
-    // key event
-    searchInput.addEventListener('keyup', () => {
+    // key event use debounce
+    function handleInput(e) {
+        console.log(e);
         let results = [];
         const input = searchInput.value;
         const searchable = Object.keys(arrNametoCCA3);
@@ -182,8 +208,12 @@ function updateUploadCountryes(countryCode) {
         }
         renderResults(results);
         contentCountry.style.visibility = 'hidden';
-    });
+    }
+    const debouncedHandle = debounce(handleInput, 250);
+    searchInput.addEventListener('keyup', debouncedHandle);
+
     async function serverRequest(countryCode) {
+        console.log('Server request');
         try {
             await loadDataForCountry(countryCode);
             updateUploadCountryes(countryCode);
@@ -206,7 +236,8 @@ function updateUploadCountryes(countryCode) {
             const record = localStorage.getItem(countryCode);
             searchInput.value = '';
             if (record === null) {
-                serverRequest(countryCode);
+                const debounceCountryInfo = debounce(serverRequest, 250);
+                debounceCountryInfo(countryCode);
             } else {
                 printInformationCountry(JSON.parse(record));
                 updateUploadCountryes(countryCode);
