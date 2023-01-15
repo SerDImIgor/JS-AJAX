@@ -190,8 +190,7 @@ function updateUploadCountryes(countryCode) {
             uploadLastSaveCountryes();
         } catch (err) {
             if (err instanceof CustomerError) {
-                output.innerHTML = 'loadCountries : ';
-                output.innerHTML += err.message;
+                output.innerHTML = `<p style="color:red"> loadCountries : ${err.message} <p>`;
             } else {
                 output.innerHTML = `<p style="color:red">It seems that you do not have an internet connection or the server is not available ${err.message}</p>`;
             }
